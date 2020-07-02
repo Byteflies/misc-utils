@@ -180,8 +180,7 @@ int main(int argc, char** argv)
 
             argc-=3;
             argv+=3;
-        }
-        if (argc >= 3 && !strcmp(argv[0], "orword")) {
+        } else if (argc >= 3 && !strcmp(argv[0], "orword")) {
             int offset = strtol(argv[1], NULL, 0);
             int value = strtol(argv[2], NULL, 0);
 
