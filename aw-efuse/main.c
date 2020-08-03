@@ -159,13 +159,13 @@ int main(int argc, char** argv)
                     return -1;
                 }
 
-                int offset = strtol(argv[1], NULL, 0);
+                unsigned long offset = strtol(argv[1], NULL, 0);
                 if (offset >= 0x40) {
-                    printf("Write out of range (%02x)\n", offset);
+                    printf("Write out of range (%02lx)\n", offset);
                     return -1;
                 }
 
-                printf("Writing %u words at 0x%02x from '%s': ", bytes/4, offset, argv[2]);
+                printf("Writing %u words at 0x%02lx from '%s': ", bytes/4, offset, argv[2]);
                 if (!efuseWriteArray(efuse, offset, data, bytes/4)) {
                     printf("Write failed\n");
                     retVal = 1;
@@ -181,13 +181,13 @@ int main(int argc, char** argv)
             argc-=3;
             argv+=3;
         } else if (argc >= 3 && !strcmp(argv[0], "orword")) {
-            int offset = strtol(argv[1], NULL, 0);
-            int value = strtol(argv[2], NULL, 0);
+            unsigned long offset = strtol(argv[1], NULL, 0);
+            unsigned long value = strtol(argv[2], NULL, 0);
 
-            uint32_t current = efuseRead(efuse, offset);
+            unsigned long current = efuseRead(efuse, offset);
             current |= value;
 
-            printf("Writing %08x at 0x%02x: ", current, offset);
+            printf("Writing %08lx at 0x%02lx: ", current, offset);
 
             if (!efuseWrite(efuse, offset, current)) {
                 printf("Write failed\n");
